@@ -9,6 +9,10 @@ class UserService {
   async registration(email: string, password: string) {
     const candidate = await userModel.findOne({ email });
 
+    if (candidate) {
+      throw new Error();
+    }
+
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuidv4();
 
@@ -33,7 +37,16 @@ class UserService {
     };
   }
 
-  async activate() {}
+  async activate(activationLink) {
+    const user = await userModel.findOne({ activationLink });
+
+    if (!user) {
+      throw new Error();
+    }
+
+    user.isActivated = true;
+    await user.save();
+  }
 
   async login() {}
 

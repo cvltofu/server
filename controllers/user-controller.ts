@@ -1,5 +1,28 @@
+import validationResult from 'express-validator';
+import userService from '../services/user-service';
+
 class UserController {
-  async registration() {}
+  async registration(req, res, next) {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return next();
+      }
+
+      const { email, password } = req.body;
+      const userData = await userService.registration(email, password);
+
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
 
   async login() {}
 

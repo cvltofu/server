@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-expressions */
 
 export default class UserDto {
   email: string;
