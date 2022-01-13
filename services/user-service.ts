@@ -4,7 +4,7 @@ import userModel from '../models/user-model';
 import mailService from './mail-service';
 import UserDto from '../dtos/user-dto';
 import tokenService from './token-service';
-import ApiError from '../exceptions/api-error.js';
+import ApiError from '../exceptions/api-error';
 
 class UserService {
   async registration(email: string, password: string) {
