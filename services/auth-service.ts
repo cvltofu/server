@@ -30,14 +30,16 @@ class UserService {
       `${process.env.API_URL}/api/activate/${activationLink}`
     );
 
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    return this.generateSaveAndGetTokens(user);
 
-    return {
-      ...tokens,
-      user: userDto,
-    };
+    // const userDto = new UserDto(user);
+    // const tokens = tokenService.generateTokens({ ...userDto });
+    // await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    // return {
+    //   ...tokens,
+    //   user: userDto,
+    // };
   }
 
   async activate(activationLink: string) {
@@ -64,12 +66,7 @@ class UserService {
       throw ApiError.BadRequest('Неверный пароль');
     }
 
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return this.generateSaveAndGetTokens(user);
   }
 
   async logout(refreshToken: string) {
@@ -79,7 +76,13 @@ class UserService {
 
   async refresh() {}
 
-  async getAllUsers() {}
+  private async generateSaveAndGetTokens(user: Record<string, never>) {
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
 }
 
 export default new UserService();

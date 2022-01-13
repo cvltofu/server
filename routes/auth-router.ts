@@ -1,6 +1,6 @@
 import Router from 'express';
 import { body } from 'express-validator';
-import userController from '../controllers/user-controller';
+import userController from '../controllers/auth-controller';
 
 const router = new Router();
 
@@ -11,7 +11,7 @@ router.post(
   body('password').isLength({ min: 3, max: 16 }),
   userController.registration
 );
-// обернуть в обёртку вместо try-catch
+// обернуть в функцию-обёртку вместо try-catch
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);

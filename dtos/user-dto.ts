@@ -1,3 +1,5 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-underscore-dangle */
 
 export default class UserDto {
@@ -8,8 +10,8 @@ export default class UserDto {
   isActivated: boolean;
 
   constructor(model) {
-    (this.email = model.email)((this.id = model._id))(
-      (this.isActivated = model.isActivated)
-    );
+    (this.email = model.email),
+      (this.id = model._id),
+      (this.isActivated = model.isActivated);
   }
 }

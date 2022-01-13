@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import { validationResult } from 'express-validator';
-import userService from '../services/user-service';
+import userService from '../services/auth-service';
 import ApiError from '../exceptions/api-error';
 
 class UserController {
@@ -69,8 +69,6 @@ class UserController {
   }
 
   async refresh() {}
-
-  async getUsers() {}
 }
 
 export default new UserController();

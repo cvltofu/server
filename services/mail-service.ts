@@ -22,11 +22,11 @@ class MailService {
       subject: `Активация аккаунта на ${process.env.API_URL}`,
       text: '',
       html: `
-                    <div>
-                        <h1>Для активации перейдите по ссылке</h1>
-                        <a href="${link}">${link}</a>
-                    </div>
-                `,
+              <div>
+                   <h1>Для активации перейдите по ссылке</h1>
+                   <a href="${link}">${link}</a>
+               </div>
+            `,
     });
   }
 }
