@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import userModel from '../models/user-model';
 import mailService from './mail-service';
 import UserDto from '../dtos/user-dto';
+import tokenService from './token-service';
 
 class UserService {
   async registration(email: string, password: string) {
