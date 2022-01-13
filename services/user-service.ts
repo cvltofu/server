@@ -4,13 +4,16 @@ import userModel from '../models/user-model';
 import mailService from './mail-service';
 import UserDto from '../dtos/user-dto';
 import tokenService from './token-service';
+import ApiError from '../exceptions/api-error.js';
 
 class UserService {
   async registration(email: string, password: string) {
     const candidate = await userModel.findOne({ email });
 
     if (candidate) {
-      throw new Error();
+      throw ApiError.BadRequest(
+        `A user with an email ${email} already exists.`
+      );
     }
 
     const hashPassword = await bcrypt.hash(password, 3);

@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
 import userService from '../services/user-service';
+import ApiError from '../exceptions/api-error.js';
 
 class UserController {
   async registration(req, res, next) {
@@ -7,7 +8,7 @@ class UserController {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return next();
+        return next(ApiError.BadRequest('Validation error.', errors.array()));
       }
 
       const { email, password } = req.body;
