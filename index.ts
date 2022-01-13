@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 6000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
-// app.options('*', cors());
+app.options('*', cors());
 
 async function startApp() {
   try {
