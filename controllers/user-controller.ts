@@ -1,4 +1,4 @@
-import validationResult from 'express-validator';
+import { validationResult } from 'express-validator';
 import userService from '../services/user-service';
 
 class UserController {
