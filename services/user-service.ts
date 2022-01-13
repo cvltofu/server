@@ -1,3 +1,5 @@
+import userModel from '../models/user-model';
+
 class UserService {
   async registration() {}
 
