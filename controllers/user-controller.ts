@@ -1,14 +1,15 @@
+import { Express } from 'express';
 import { validationResult } from 'express-validator';
 import userService from '../services/user-service';
 import ApiError from '../exceptions/api-error';
 
 class UserController {
-  async registration(req, res, next) {
+  async registration(req: Express.Request, res: Express.Response, next) {
     try {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Validation error.', errors.array()));
+        throw ApiError.BadRequest('Validation error.', errors.array());
       }
 
       const { email, password } = req.body;
@@ -25,7 +26,7 @@ class UserController {
     }
   }
 
-  async activate(req, res, next) {
+  async activate(req: Express.Request, res: Express.Response, next) {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
@@ -36,7 +37,7 @@ class UserController {
     }
   }
 
-  async login(req, res, next) {
+  async login(req: Express.Request, res: Express.Response, next) {
     try {
       const { email, password } = req.body;
       const { refreshToken, accessToken, user } = await userService.login(
@@ -55,11 +56,12 @@ class UserController {
     }
   }
 
-  async logout(req, res, next) {
+  async logout(req: Express.Request, res: Express.Response, next) {
     try {
       const { refreshToken } = req.cookies;
       const token = await userService.logout(refreshToken);
       res.clearCookie('refreshToken');
+
       return res.json(token);
     } catch (e) {
       next(e);

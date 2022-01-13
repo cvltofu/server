@@ -40,7 +40,7 @@ class UserService {
     };
   }
 
-  async activate(activationLink) {
+  async activate(activationLink: string) {
     const user = await userModel.findOne({ activationLink });
 
     if (!user) {
@@ -51,7 +51,7 @@ class UserService {
     await user.save();
   }
 
-  async login(email, password) {
+  async login(email: string, password: string) {
     const user = await userModel.findOne({ email });
 
     if (!user) {
@@ -72,7 +72,7 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  async logout(refreshToken) {
+  async logout(refreshToken: string) {
     const token = await tokenService.removeToken(refreshToken);
     return token;
   }
