@@ -1,9 +1,30 @@
+import TodoDto from '../dtos/todo-dto.js';
+import todoModel from '../models/todo-model.js';
+
 class TodosService {
-  async getTodos() {}
+  async getTodos() {
+    const todos = await todoModel.find({}, null, { limit: 10 });
 
-  async postTodos() {}
+    return todos;
+  }
 
-  async deleteTodos() {}
+  async postTodos(date, title, task) {
+    const todo = await todoModel.create({
+      date,
+      title,
+      task,
+    });
+
+    const todoDto = new TodoDto(todo);
+
+    return { todo: todoDto };
+  }
+
+  async deleteTodos(_id) {
+    const todo = await todoModel.findByIdAndDelete(_id);
+
+    return todo;
+  }
 }
 
 export default new TodosService();
