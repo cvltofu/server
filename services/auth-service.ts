@@ -31,15 +31,6 @@ class UserService {
     );
 
     return this.generateSaveAndGetTokens(user);
-
-    // const userDto = new UserDto(user);
-    // const tokens = tokenService.generateTokens({ ...userDto });
-    // await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    // return {
-    //   ...tokens,
-    //   user: userDto,
-    // };
   }
 
   async activate(activationLink: string) {

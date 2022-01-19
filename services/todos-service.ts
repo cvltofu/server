@@ -1,5 +1,5 @@
-import TodoDto from '../dtos/todo-dto.js';
-import todoModel from '../models/todo-model.js';
+import TodoDto from '../dtos/todo-dto';
+import todoModel from '../models/todo-model';
 
 class TodosService {
   async getTodos() {

@@ -2,10 +2,10 @@ import Router from 'express';
 import todoController from '../controllers/todo-controller';
 import authMiddleware from '../middlewares/auth-middleware';
 
-const router = new Router();
+const todosRouter = new Router();
 
-router.get('/todos/', authMiddleware, todoController.getTodos);
-router.post('/todos/', authMiddleware, todoController.postTodos);
-router.delete('/todos/:id', authMiddleware, todoController.deleteTodos);
+todosRouter.get('/', authMiddleware, todoController.getTodos);
+todosRouter.post('/', authMiddleware, todoController.postTodos);
+todosRouter.delete('/:id', authMiddleware, todoController.deleteTodos);
 
-export default router;
+export default todosRouter;
