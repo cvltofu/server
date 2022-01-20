@@ -7,7 +7,7 @@ import tokenService from './token-service';
 import ApiError from '../exceptions/api-error';
 
 class UserService {
-  async registration(email: string, password: string) {
+  async registration({ email, password }) {
     const candidate = await userModel.findOne({ email });
 
     if (candidate) {
@@ -44,28 +44,28 @@ class UserService {
     await user.save();
   }
 
-  async login(email: string, password: string) {
+  async login({ email, password }) {
     const user = await userModel.findOne({ email });
 
     if (!user) {
-      throw ApiError.BadRequest('Пользователь с таким email не найден');
+      throw ApiError.BadRequest('The user with this email was not found.');
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
 
     if (!isPassEquals) {
-      throw ApiError.BadRequest('Неверный пароль');
+      throw ApiError.BadRequest('Invalid password.');
     }
 
     return this.generateSaveAndGetTokens(user);
   }
 
-  async logout(refreshToken: string) {
+  async logout({ refreshToken }) {
     const token = await tokenService.removeToken(refreshToken);
     return token;
   }
 
-  async refresh(refreshToken: string) {
+  async refresh({ refreshToken }) {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }

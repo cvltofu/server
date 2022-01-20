@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import { validationResult } from 'express-validator';
-import userService from '../services/auth-service';
+import authService from '../services/auth-service';
 import ApiError from '../exceptions/api-error';
 
 class UserController {
@@ -12,8 +12,8 @@ class UserController {
         throw ApiError.BadRequest('Validation error.', errors.array());
       }
 
-      const { email, password } = req.body;
-      const userData = await userService.registration(email, password);
+      // const { email, password } = req.body;
+      const userData = await authService.registration(req.body);
 
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -29,7 +29,7 @@ class UserController {
   async activate(req: Express.Request, res: Express.Response, next) {
     try {
       const activationLink = req.params.link;
-      await userService.activate(activationLink);
+      await authService.activate(activationLink);
 
       return res.redirect(process.env.CLIENT_URL);
     } catch (e) {
@@ -39,10 +39,9 @@ class UserController {
 
   async login(req: Express.Request, res: Express.Response, next) {
     try {
-      const { email, password } = req.body;
-      const { refreshToken, accessToken, user } = await userService.login(
-        email,
-        password
+      // const { email, password } = req.body;
+      const { refreshToken, accessToken, user } = await authService.login(
+        req.body
       );
 
       res.cookie('refreshToken', refreshToken, {
@@ -58,8 +57,8 @@ class UserController {
 
   async logout(req: Express.Request, res: Express.Response, next) {
     try {
-      const { refreshToken } = req.cookies;
-      const token = await userService.logout(refreshToken);
+      // const { refreshToken } = req.cookies;
+      const token = await authService.logout(req.cookies);
       res.clearCookie('refreshToken');
 
       return res.json(token);
@@ -70,8 +69,8 @@ class UserController {
 
   async refresh(req: Express.Request, res: Express.Response, next) {
     try {
-      const { refreshToken } = req.cookies;
-      const userData = await userService.refresh(refreshToken);
+      // const { refreshToken } = req.cookies;
+      const userData = await authService.refresh(req.cookies);
 
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,

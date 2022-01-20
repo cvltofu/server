@@ -8,7 +8,7 @@ class TodosService {
     return todos;
   }
 
-  async postTodos({ date, title, task }, id) {
+  async postTodos({ date, title, task }, id: string) {
     const todo = await todoModel.create({
       date,
       title,
@@ -21,7 +21,7 @@ class TodosService {
     return { todo: todoDto };
   }
 
-  async deleteTodos(_id) {
+  async deleteTodos(_id: string) {
     const todo = await todoModel.findByIdAndDelete(_id);
 
     return todo;
