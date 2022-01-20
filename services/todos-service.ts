@@ -2,17 +2,18 @@ import TodoDto from '../dtos/todo-dto';
 import todoModel from '../models/todo-model';
 
 class TodosService {
-  async getTodos() {
-    const todos = await todoModel.find({}, null, { limit: 10 });
+  async getTodos(id) {
+    const todos = await todoModel.find({ userId: id });
 
     return todos;
   }
 
-  async postTodos(date, title, task) {
+  async postTodos({ date, title, task }, id) {
     const todo = await todoModel.create({
       date,
       title,
       task,
+      userId: id,
     });
 
     const todoDto = new TodoDto(todo);
