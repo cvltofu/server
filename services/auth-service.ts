@@ -27,7 +27,7 @@ class UserService {
 
     await mailService.sendActivationMail(
       email,
-      `${process.env.API_URL}/api/activate/${activationLink}`
+      `${process.env.API_URL}/api/auth/activate/${activationLink}`
     );
 
     return this.generateSaveAndGetTokens(user);
@@ -37,7 +37,7 @@ class UserService {
     const user = await userModel.findOne({ activationLink });
 
     if (!user) {
-      throw new Error();
+      throw ApiError.BadRequest('Invalid activation link.');
     }
 
     user.isActivated = true;
