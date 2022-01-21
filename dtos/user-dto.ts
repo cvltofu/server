@@ -3,6 +3,8 @@
 /* eslint-disable no-underscore-dangle */
 
 export default class UserDto {
+  username: string;
+
   email: string;
 
   id: string;
@@ -10,7 +12,8 @@ export default class UserDto {
   isActivated: boolean;
 
   constructor(model) {
-    (this.email = model.email),
+    (this.username = model.username),
+      (this.email = model.email),
       (this.id = model._id),
       (this.isActivated = model.isActivated);
   }

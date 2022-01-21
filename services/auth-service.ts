@@ -7,7 +7,7 @@ import tokenService from './token-service';
 import ApiError from '../exceptions/api-error';
 
 class UserService {
-  async registration({ email, password }) {
+  async registration({ username, email, password }) {
     const candidate = await userModel.findOne({ email });
 
     if (candidate) {
@@ -20,6 +20,7 @@ class UserService {
     const activationLink = uuidv4();
 
     const user = await userModel.create({
+      username,
       email,
       password: hashPassword,
       activationLink,
