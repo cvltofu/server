@@ -49,7 +49,7 @@ class UserController {
         httpOnly: true,
       });
 
-      return res.json({ accessToken, user });
+      return res.json({ accessToken });
     } catch (e) {
       next(e);
     }
@@ -70,14 +70,16 @@ class UserController {
   async refresh(req: Express.Request, res: Express.Response, next) {
     try {
       // const { refreshToken } = req.cookies;
-      const userData = await authService.refresh(req.cookies);
+      const { refreshToken, accessToken, user } = await authService.refresh(
+        req.cookies
+      );
 
-      res.cookie('refreshToken', userData.refreshToken, {
+      res.cookie('refreshToken', refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
 
-      return res.json(userData);
+      return res.json({ accessToken });
     } catch (e) {
       next(e);
     }
