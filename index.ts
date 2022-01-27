@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import authRouter from './routes/auth-router';
+import postsRouter from './routes/post-router';
 import todosRouter from './routes/todos-router';
 import errorMiddleware from './middlewares/error-middleware';
 
@@ -22,6 +23,7 @@ app.use(
 app.options('*', cors());
 app.use('/api/auth', authRouter);
 app.use('/api/todos', todosRouter);
+app.use('/api/posts', postsRouter);
 app.use(errorMiddleware);
 
 async function startApp() {
