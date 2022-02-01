@@ -2,6 +2,7 @@ import { Express } from 'express';
 import { validationResult } from 'express-validator';
 import authService from '../services/auth-service';
 import ApiError from '../exceptions/api-error';
+import authSchema from '../validators/reg-validation';
 
 class UserController {
   async registration(
@@ -10,10 +11,10 @@ class UserController {
     next: Express.NextFunction
   ) {
     try {
-      const errors = validationResult(req);
+      const { error } = authSchema.validate(req.body);
 
-      if (!errors.isEmpty()) {
-        throw ApiError.BadRequest('Validation error.', errors.array());
+      if (error) {
+        throw ApiError.BadRequest('Validation error.', error.details);
       }
 
       const userData = await authService.registration(req.body);

@@ -29,6 +29,7 @@
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": ["warn"],
     "import/extensions": ["off"],
-    "import/no-unresolved": ["off"]
+    "import/no-unresolved": ["off"],
+    "import/no-import-module-exports": ["off"]
   }
 }
