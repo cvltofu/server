@@ -2,7 +2,11 @@ import { Express } from 'express';
 import todosService from '../services/todos-service';
 
 class TodoController {
-  async getTodos(req: Express.Request, res: Express.Response, next) {
+  async getTodos(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const todos = await todosService.getTodos(req.user.id);
 
@@ -12,7 +16,11 @@ class TodoController {
     }
   }
 
-  async postTodos(req: Express.Request, res: Express.Response, next) {
+  async postTodos(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const todo = await todosService.postTodos(req.body, req.user.id);
 
@@ -22,7 +30,11 @@ class TodoController {
     }
   }
 
-  async deleteTodos(req: Express.Request, res: Express.Response, next) {
+  async deleteTodos(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const todo = await todosService.deleteTodos(req.params.id);
 

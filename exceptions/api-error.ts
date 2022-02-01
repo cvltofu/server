@@ -1,9 +1,9 @@
 export default class ApiError extends Error {
   status: number;
 
-  errors: any[];
+  errors: Error[];
 
-  constructor(status: number, message: string, errors: any[] = []) {
+  constructor(status: number, message: string, errors: Error[] = []) {
     super(message);
     this.status = status;
     this.errors = errors;
@@ -13,7 +13,7 @@ export default class ApiError extends Error {
     return new ApiError(401, 'The user is not logged in.');
   }
 
-  static BadRequest(message, errors = []) {
+  static BadRequest(message: Error['message'], errors = []) {
     return new ApiError(400, message, errors);
   }
 }

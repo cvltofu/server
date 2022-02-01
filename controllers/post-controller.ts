@@ -2,7 +2,11 @@ import { Express } from 'express';
 import postsService from '../services/posts-service';
 
 class PostController {
-  async getPosts(req: Express.Request, res: Express.Response, next) {
+  async getPosts(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const posts = await postsService.getPosts();
 
@@ -12,7 +16,11 @@ class PostController {
     }
   }
 
-  async postPost(req: Express.Request, res: Express.Response, next) {
+  async postPost(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const post = await postsService.postPost(req.body, req.user.id);
 
@@ -22,7 +30,11 @@ class PostController {
     }
   }
 
-  async deletePost(req: Express.Request, res: Express.Response, next) {
+  async deletePost(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const post = await postsService.deletePost(req.params.id);
 

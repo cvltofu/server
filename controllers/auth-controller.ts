@@ -4,7 +4,11 @@ import authService from '../services/auth-service';
 import ApiError from '../exceptions/api-error';
 
 class UserController {
-  async registration(req: Express.Request, res: Express.Response, next) {
+  async registration(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const errors = validationResult(req);
 
@@ -25,7 +29,11 @@ class UserController {
     }
   }
 
-  async activate(req: Express.Request, res: Express.Response, next) {
+  async activate(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const activationLink = req.params.link;
       await authService.activate(activationLink);
@@ -36,11 +44,13 @@ class UserController {
     }
   }
 
-  async login(req: Express.Request, res: Express.Response, next) {
+  async login(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
-      const { refreshToken, accessToken, user } = await authService.login(
-        req.body
-      );
+      const { refreshToken, accessToken } = await authService.login(req.body);
 
       res.cookie('refreshToken', refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -53,7 +63,11 @@ class UserController {
     }
   }
 
-  async logout(req: Express.Request, res: Express.Response, next) {
+  async logout(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
       const token = await authService.logout(req.cookies);
       res.clearCookie('refreshToken');
@@ -64,9 +78,13 @@ class UserController {
     }
   }
 
-  async refresh(req: Express.Request, res: Express.Response, next) {
+  async refresh(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
     try {
-      const { refreshToken, accessToken, user } = await authService.refresh(
+      const { refreshToken, accessToken } = await authService.refresh(
         req.cookies
       );
 

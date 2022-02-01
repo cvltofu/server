@@ -1,7 +1,11 @@
 import Express from 'express';
 import ApiError from '../exceptions/api-error';
 
-export default function (err, req: Express.Request, res: Express.Response) {
+export default function (
+  err: Error,
+  req: Express.Request,
+  res: Express.Response
+) {
   console.log(err);
 
   if (err instanceof ApiError) {

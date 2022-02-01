@@ -2,7 +2,7 @@ import TodoDto from '../dtos/todo-dto';
 import todoModel from '../models/todo-model';
 
 class TodosService {
-  async getTodos(id) {
+  async getTodos(id: string) {
     const todos = await todoModel.find({ userId: id });
 
     return todos;

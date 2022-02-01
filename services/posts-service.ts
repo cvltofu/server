@@ -8,7 +8,7 @@ class PostsService {
     return posts;
   }
 
-  async postPost(content, id: string) {
+  async postPost(content: string, id: string) {
     const post = await postModel.create({
       content,
       userId: id,

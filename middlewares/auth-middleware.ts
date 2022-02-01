@@ -2,7 +2,11 @@ import { Express } from 'express';
 import ApiError from '../exceptions/api-error';
 import tokenService from '../services/token-service';
 
-export default function (req: Express.Request, res: Express.Response, next) {
+export default function (
+  req: Express.Request,
+  res: Express.Response,
+  next: Express.NextFunction
+) {
   try {
     const authorizationHeader = req.headers.authorization;
 
